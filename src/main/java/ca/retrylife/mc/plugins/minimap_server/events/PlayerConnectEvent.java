@@ -8,6 +8,6 @@ public class PlayerConnectEvent implements Listener{
     
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        
+        // Unused for now
     }
 }

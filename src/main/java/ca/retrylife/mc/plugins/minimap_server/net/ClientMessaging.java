@@ -12,6 +12,9 @@ import ca.retrylife.mc.plugins.minimap_server.api.Waypoint;
 
 public class ClientMessaging {
 
+    // Network channel id
+    public static final String NET_CHANNEL_ID = "XaeroMinimap";
+
     // Internal instance reference
     private static ClientMessaging instance = null;
 
@@ -38,7 +41,7 @@ public class ClientMessaging {
      * @param packet Packet
      */
     private void writePacketToPlayer(Player player, byte[] packet) {
-        player.sendPluginMessage(MinimapServerPlugin.getInstance(), "XaeroMinimap", packet);
+        player.sendPluginMessage(MinimapServerPlugin.getInstance(), NET_CHANNEL_ID, packet);
     }
 
     /**
@@ -65,6 +68,13 @@ public class ClientMessaging {
 
     }
 
+    /**
+     * Updates a waypoint on the player's client
+     * 
+     * @param player Player
+     * @param wp     Waypoint
+     * @throws IOException
+     */
     public void updateWaypointForPlayer(Player player, Waypoint wp) throws IOException {
 
         // Create output buffers
@@ -86,6 +96,32 @@ public class ClientMessaging {
         if (wp.isYawTeleportEnabled()) {
             dataBuffer.writeShort((short) ((int) wp.getLocation().getYaw()));
         }
+
+        // Send to player
+        writePacketToPlayer(player, byteBuffer.toByteArray());
+
+    }
+
+    /**
+     * Deletes a waypoint from a player's client
+     * 
+     * @param player Player
+     * @param wp     Waypoint
+     * @throws IOException
+     */
+    public void deleteWaypointForPlayer(Player player, Waypoint wp) throws IOException {
+
+        // Create output buffers
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        DataOutputStream dataBuffer = new DataOutputStream(byteBuffer);
+
+        // Construct packet
+        dataBuffer.write(new byte[] { 0 });
+        dataBuffer.writeChar(MessageTypes.DELETE_WAYPOINT.getData());
+        dataBuffer.writeInt(wp.getUid());
+
+        // Send to player
+        writePacketToPlayer(player, byteBuffer.toByteArray());
 
     }
 
