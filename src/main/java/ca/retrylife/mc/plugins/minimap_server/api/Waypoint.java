@@ -1,9 +1,12 @@
 package ca.retrylife.mc.plugins.minimap_server.api;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Object representation of an in-game waypoint
@@ -11,15 +14,22 @@ import lombok.Getter;
 @Getter
 public class Waypoint {
 
+    // Max length of a waypoint's name
     private static final int MAX_NAME_LENGTH = 40;
 
-    private final Location location;
+    // Atomic counter for generating unique waypoint ids
+    private static final AtomicInteger COUNTER = new AtomicInteger();
+
+    @Setter
+    private Location location;
+    private String name;
+
+    // Finals
     private final String identifier;
-    private final String name;
     private final char symbol;
     private final ChatColor color;
-    // final int id;
-    private final boolean useYaw;
+    private final boolean yawTeleportEnabled;
+    private final int uid;
 
     /**
      * Create a new Waypoint
@@ -50,7 +60,13 @@ public class Waypoint {
         this.location = loc;
         this.identifier = identifier;
         this.symbol = symbol;
-        this.useYaw = useYaw;
+        this.yawTeleportEnabled = useYaw;
+
+        // Set the UUID
+        this.uid = COUNTER.getAndIncrement();
+
+        // Set the name
+        this.setName(name);
 
         // Handle colors
         if (color.ordinal() > 15) {
@@ -59,6 +75,16 @@ public class Waypoint {
             this.color = color;
         }
 
+
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Waypoint<\"%s\" at %s>", this.getName(), this.getLocation().toString());
+    }
+
+    public void setName(String name) {
+
         // Handle string limitations on names
         if (name.length() > MAX_NAME_LENGTH) {
             this.name = name.substring(0, MAX_NAME_LENGTH);
@@ -66,10 +92,5 @@ public class Waypoint {
             this.name = name;
         }
 
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Waypoint<\"%s\" at %s>", this.getName(), this.getLocation().toString());
     }
 }

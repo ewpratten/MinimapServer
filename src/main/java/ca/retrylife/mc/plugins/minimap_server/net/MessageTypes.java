@@ -5,7 +5,7 @@ package ca.retrylife.mc.plugins.minimap_server.net;
  */
 public enum MessageTypes {
 
-    PLAYER_CONNECT((byte)0x48);
+    PLAYER_CONNECT((byte) 0x48), WORLD_UPDATE((byte) 0x57), UPDATE_WAYPOINT((byte) 0x41);
 
     private final byte data;
 
@@ -16,5 +16,5 @@ public enum MessageTypes {
     public byte getData() {
         return data;
     }
-    
+
 }

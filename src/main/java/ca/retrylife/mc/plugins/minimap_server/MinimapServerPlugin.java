@@ -13,6 +13,21 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 @PluginMain
 public class MinimapServerPlugin extends JavaPlugin {
 
+    // Internal instance reference
+    private static MinimapServerPlugin instance = null;
+    
+    /**
+     * Get the global instance of MinimapServerPlugin
+     *
+     * @return MinimapServerPlugin instance
+     */
+    public static MinimapServerPlugin getInstance() {
+        if (instance == null) {
+            instance = new MinimapServerPlugin();
+        }
+        return instance;
+    }    
+
     public MinimapServerPlugin() {
     }
 
