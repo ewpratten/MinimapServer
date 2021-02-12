@@ -18,7 +18,14 @@ The public-facing aspect of MinimapServer is contained in two core classes:
 
 ```groovy
 repositories {
-    maven { url 'https://maven.pkg.github.com/ewpratten/MinimapServer'}
+    maven { 
+        name = "GitHubPackages_MinimapServer"
+        url 'https://maven.pkg.github.com/ewpratten/MinimapServer'
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+        }
+    }
     maven { url 'https://gpr.retrylife.ca/ewpratten/MinimapServer' }
 }
 ```
@@ -27,9 +34,9 @@ repositories {
 
 ```groovy
 dependencies {
-    implementation 'ca.retrylife:minimap-server:0.1.0-1.16.3-SNAPSHOT'
-    implementation 'ca.retrylife:minimap-server:0.1.0-1.16.3-SNAPSHOT:sources'
-    implementation 'ca.retrylife:minimap-server:0.1.0-1.16.3-SNAPSHOT:javadoc'
+    implementation 'ca.retrylife.mc.plugins:minimap-server:0.1.1-1.16.3-SNAPSHOT'
+    implementation 'ca.retrylife.mc.plugins:minimap-server:0.1.1-1.16.3-SNAPSHOT:sources'
+    implementation 'ca.retrylife.mc.plugins:minimap-server:0.1.1-1.16.3-SNAPSHOT:javadoc'
 }
 ```
 
