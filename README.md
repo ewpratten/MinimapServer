@@ -1,5 +1,5 @@
 # MinimapServer
-[![Documentation](https://img.shields.io/badge/-documentation-blue)](https://ewpratten.retrylife.ca/MinimapServer) ![Build plugin](https://github.com/Ewpratten/MinimapServer/workflows/Build%plugin/badge.svg) 
+[![Documentation](https://img.shields.io/badge/-documentation-blue)](https://ewpratten.retrylife.ca/MinimapServer) ![Build plugin](https://github.com/Ewpratten/MinimapServer/workflows/Build%20plugin/badge.svg)
 
 MinimapServer is an open-source re-implementation of [xaero96](https://www.curseforge.com/members/xaero96/projects)'s [Minimap API](https://www.spigotmc.org/resources/minimapapi.35354/) for his popular *[Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)* and *[Xaero's World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map)* Minecraft mods.
 
