@@ -49,7 +49,7 @@ public class ClientMessaging {
      * 
      * @param player Player
      * @param world  World
-     * @throws IOException
+     * @throws IOException Thrown if there is a networking error
      */
     public void updateClientWorld(Player player, World world) throws IOException {
 
@@ -73,7 +73,7 @@ public class ClientMessaging {
      * 
      * @param player Player
      * @param wp     Waypoint
-     * @throws IOException
+     * @throws IOException Thrown if there is a networking error
      */
     public void updateWaypointForPlayer(Player player, Waypoint wp) throws IOException {
 
@@ -107,7 +107,7 @@ public class ClientMessaging {
      * 
      * @param player Player
      * @param wp     Waypoint
-     * @throws IOException
+     * @throws IOException Thrown if there is a networking error
      */
     public void deleteWaypointForPlayer(Player player, Waypoint wp) throws IOException {
 

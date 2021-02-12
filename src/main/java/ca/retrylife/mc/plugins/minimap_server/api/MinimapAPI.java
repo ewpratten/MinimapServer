@@ -38,7 +38,7 @@ public class MinimapAPI {
      * 
      * @param wp     Waypoint
      * @param player Player
-     * @throws IOException
+     * @throws IOException Thrown if there is a networking error
      */
     public void sendWaypoint(Waypoint wp, Player player) throws IOException {
         if (PlayerRegistry.getInstance().isPlayerModded(player)) {
@@ -49,9 +49,9 @@ public class MinimapAPI {
     /**
      * Remove a waypoint from a player
      * 
-     * @param wpWaypoint
+     * @param wp Waypoint
      * @param player     Player
-     * @throws IOException
+     * @throws IOException Thrown if there is a networking error
      */
     public void removeWaypoint(Waypoint wp, Player player) throws IOException {
         if (PlayerRegistry.getInstance().isPlayerModded(player)) {
@@ -64,7 +64,7 @@ public class MinimapAPI {
      * 
      * @param world  World
      * @param player Player
-     * @throws IOException
+     * @throws IOException Thrown if there is a networking error
      */
     public void setPlayerWorld(World world, Player player) throws IOException {
         if (PlayerRegistry.getInstance().isPlayerModded(player)) {
