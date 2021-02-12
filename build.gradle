@@ -13,6 +13,10 @@ plugins {
     id 'io.freefair.lombok' version '5.3.0'
 }
 
+group = project.property("plugin.group")
+version = project.property("plugin.version")
+archivesBaseName = project.property("plugin.name")
+
 apply from: "gradle_scripts/sensible.gradle"
 
 sourceCompatibility = 1.8
@@ -23,9 +27,7 @@ ext {
     mcVersion = project.property("minecraft.version")
 }
 
-group project.property("plugin.group")
-version project.property("plugin.version")
-archivesBaseName = project.property("plugin.name")
+
 
 spigot {
     name = project.property("plugin.name")
