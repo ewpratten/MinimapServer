@@ -1,0 +1,115 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'kr.entree.spigradle' version '2.2.3'
+    id 'io.freefair.lombok' version '5.3.0'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+ext {
+    mcVersion = project.property("minecraft.version")
+}
+
+group project.property("plugin.group")
+archivesBaseName = project.property("plugin.name")
+
+spigot {
+    name = project.property("plugin.name")
+    authors = [project.property("plugin.author")]
+    apiVersion = project.property("api.version")
+    version = project.property("plugin.version")
+    load = STARTUP
+    //    depends = ['']
+    debug {
+         buildVersion = project.property("minecraft.version")
+    }
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+    papermc()
+    spigot()
+    jitpack()
+    maven { url "https://libraries.minecraft.net" }
+    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
+    maven { url = "https://hub.spigotmc.org/nexus/content/groups/public/" }
+}
+
+def urlFile = { url, name ->
+    File file = new File("$buildDir/download/${name}.jar")
+    file.parentFile.mkdirs()
+    if (!file.exists()) {
+        new URL(url).withInputStream { downloadStream ->
+            file.withOutputStream { fileOut ->
+                fileOut << downloadStream
+            }
+        }
+    }
+    files(file.absolutePath)
+}
+
+
+dependencies {
+
+    // Game core
+    compileOnly spigot(project.property("minecraft.version"))
+
+    // Tests
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.+'
+    testImplementation "org.mockito:mockito-core:3.+"
+    testImplementation mockBukkit()
+    testImplementation 'org.assertj:assertj-core:3.+'
+
+    // Command parsing
+    compile 'com.mojang:brigadier:1.0.17'
+    compile "co.aikar:acf-paper:0.5.0-SNAPSHOT"
+
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.8.0'
+
+    // JSON handler
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+}
+
+shadowJar {
+    classifier = ''
+    version = project.property("plugin.version")
+    relocate 'co.aikar.commands', "${project.property('plugin.group')}.${project.property('plugin.name')}.acf"
+    relocate 'co.aikar.locales', "${project.property('plugin.group')}.${project.property('plugin.name')}.locales"
+}
+
+tasks.build.dependsOn(shadowJar)
+tasks.prepareSpigotPlugins.dependsOn(shadowJar)
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    ignoreFailures = false
+}
+
+processResources {
+    project.properties.put("version", this.version)
+    expand project.properties
+}
+
+compileJava {
+    options.compilerArgs += ["-parameters"]
+    options.fork = true
+    options.forkOptions.executable = 'javac'
+}
+
+defaultTasks 'build'
