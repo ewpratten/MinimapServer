@@ -7,10 +7,13 @@ buildscript {
 
 plugins {
     id 'java'
+    id 'java-library'
     id 'com.github.johnrengelman.shadow' version '6.1.0'
     id 'kr.entree.spigradle' version '2.2.3'
     id 'io.freefair.lombok' version '5.3.0'
 }
+
+apply from: "gradle_scripts/sensible.gradle"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -21,6 +24,7 @@ ext {
 }
 
 group project.property("plugin.group")
+version project.property("plugin.version")
 archivesBaseName = project.property("plugin.name")
 
 spigot {
