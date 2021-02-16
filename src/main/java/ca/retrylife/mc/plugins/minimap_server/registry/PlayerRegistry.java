@@ -6,6 +6,8 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import ca.retrylife.mc.plugins.minimap_server.api.ModdedPlayerInitEvent;
+
 /**
  * Registry of all connected players
  */
@@ -41,6 +43,9 @@ public class PlayerRegistry {
     public void registerModdedPlayer(Player player) {
         moddedPlayers.add(player);
         Bukkit.getLogger().info(String.format("Player %s added to modded client registry", player.getName()));
+
+        // Call event
+        Bukkit.getPluginManager().callEvent(new ModdedPlayerInitEvent(player));
     }
 
     /**
