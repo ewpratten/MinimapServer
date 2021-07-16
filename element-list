@@ -1,0 +1,5 @@
+ca.retrylife.mc.plugins.minimap_server
+ca.retrylife.mc.plugins.minimap_server.api
+ca.retrylife.mc.plugins.minimap_server.events
+ca.retrylife.mc.plugins.minimap_server.net
+ca.retrylife.mc.plugins.minimap_server.registry

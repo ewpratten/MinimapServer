@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"ca.retrylife.mc.plugins.minimap_server"},{"l":"ca.retrylife.mc.plugins.minimap_server.api"},{"l":"ca.retrylife.mc.plugins.minimap_server.events"},{"l":"ca.retrylife.mc.plugins.minimap_server.net"},{"l":"ca.retrylife.mc.plugins.minimap_server.registry"}]
